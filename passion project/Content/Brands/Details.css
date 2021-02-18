@@ -1,0 +1,19 @@
+﻿td,th, h2, h3 {
+    text-transform: capitalize;
+}
+
+h2 {
+    color: lightskyblue;
+}
+td{
+    padding:0.5em;
+}
+table{
+    max-width:40%;
+    margin:auto;
+}
+th{
+    text-align:center;
+    font-size:1.5em;
+    padding-bottom:1em;
+}

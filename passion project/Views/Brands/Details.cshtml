@@ -1,0 +1,33 @@
+﻿@model passion_project.Models.Brand
+@Styles.Render("~/Content/Brands/Details.css")
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2> Details</h2>
+
+<div>
+    
+    <table class="brand-details">
+        <thead>
+            <tr>
+                <th colspan="2">Brand</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.name):</td>
+                <td>@Html.DisplayFor(model => model.name)</td>
+            </tr>
+            <tr>
+                <td>Date and Time of registration:</td>
+                <td>@Html.DisplayFor(model => model.createdDate)</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.brandId }) |
+    @Html.ActionLink("Back to The List of Brands", "List")
+</p>

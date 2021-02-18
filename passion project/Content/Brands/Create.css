@@ -1,0 +1,14 @@
+﻿h2, label {
+    text-transform: capitalize;
+}
+
+
+h2 {
+    color: lightskyblue;
+    text-align: center
+}
+
+form {
+    max-width: 40%;
+    margin: auto;
+}

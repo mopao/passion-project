@@ -1,0 +1,23 @@
+﻿@model passion_project.Models.Brand
+@Styles.Render("~/Content/Brands/Delete.css")
+
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+@Html.ActionLink("Back to The List of Brands", "List")
+<h2>Confirm your action</h2>
+
+
+<div>
+    <p id="deleteMsg">Are you sure you want to delete the brand @Html.DisplayFor(model => model.name) ?<p />
+    @using (Html.BeginForm("Delete/"+Model.brandId, "Brands", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> 
+
+        </div>
+    }
+</div>

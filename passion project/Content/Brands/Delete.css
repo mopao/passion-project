@@ -1,0 +1,17 @@
+﻿h2 {
+    text-transform: capitalize;
+}
+
+
+h2 {
+    color: lightskyblue;
+    text-align: center
+}
+
+p#deleteMsg {
+    margin: 2em;
+    color: orange;
+    font-size:1.5em;
+}
+
+

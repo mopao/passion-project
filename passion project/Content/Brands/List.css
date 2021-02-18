@@ -1,0 +1,6 @@
+﻿td, th,h2{
+    text-transform: capitalize;
+}
+h2{
+    color:lightskyblue;
+}
