@@ -1,0 +1,105 @@
+﻿@model passion_project.Models.ViewModel.ItemView
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Items", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Item</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.name, htmlAttributes: new { For="name", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.item.name, new { htmlAttributes = new { Name = "name",id="name", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.item.name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.code, htmlAttributes: new {For="code", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.item.code, new { htmlAttributes = new { Name = "code", id = "code", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.item.code, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.color, htmlAttributes: new {For="color", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="color" class="form-control" name="color" id="color"/>
+                @Html.ValidationMessageFor(model => model.item.color, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.gender, htmlAttributes: new {For="gender", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(model => model.item.gender, htmlAttributes: new {Name="gender", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.item.gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.price, htmlAttributes: new { For="price",@class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.item.price, new { htmlAttributes = new { Name="price",id="price",@class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.item.price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.composition, htmlAttributes: new { For="composition",@class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.item.composition, new { htmlAttributes = new { Name = "composition", id = "composition", @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.item.composition, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.details, htmlAttributes: new {For="details", @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.item.details, new { Name="details",id="details", @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.item.details, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="image"  id="image" required/>
+                @Html.ValidationMessageFor(model => model.item.image, "", new { @class = "text-danger" })
+            </div>
+        </div>        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.item.brandId, "brandId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="brandId">
+                    @foreach (var brand in Model.brands)
+                    {
+                        
+                        <option value="@brand.brandId">@brand.name</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.item.brandId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to The List of items", "List")
+</div>

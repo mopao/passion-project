@@ -220,6 +220,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PassionDataContext.cs" />
     <Compile Include="Models\Stock.cs" />
+    <Compile Include="Models\ViewModel\ItemView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -289,11 +290,16 @@
     <Content Include="Views\Brands\Edit.cshtml" />
     <Content Include="Views\Brands\Create.cshtml" />
     <Content Include="Views\Brands\DeleteConfirm.cshtml" />
+    <Content Include="Views\Items\Create.cshtml" />
+    <Content Include="Views\Items\List.cshtml" />
+    <Content Include="Views\Items\Edit.cshtml" />
+    <Content Include="Views\Items\Details.cshtml" />
+    <Content Include="Views\Items\DeleteConfirm.cshtml" />
+    <Content Include="Views\Stocks\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Items\" />
-    <Folder Include="Views\Stocks\" />
+    <Folder Include="Content\Items\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -82,15 +82,16 @@ namespace passion_project.Controllers
         [HttpPost]
         public IHttpActionResult AddStock(Stock stock)
         {
+            stock.createdDate = DateTime.Now;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            
             db.stocks.Add(stock);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = stock.stockId }, stock);
+            return Ok(stock.itemId);
         }
 
         // DELETE: api/StocksData/DeleteStock/5

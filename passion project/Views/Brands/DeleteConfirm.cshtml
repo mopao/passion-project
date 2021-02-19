@@ -11,12 +11,13 @@
 
 <div>
     <p id="deleteMsg">Are you sure you want to delete the brand @Html.DisplayFor(model => model.name) ?<p />
-    @using (Html.BeginForm("Delete/"+Model.brandId, "Brands", FormMethod.Post))
+    @using (Html.BeginForm("Delete", "Brands", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.brandId, new { Name = "id" })
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> 
+            <input type="submit" value="Delete" class="btn btn-default" />
 
         </div>
     }

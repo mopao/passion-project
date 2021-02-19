@@ -70,7 +70,7 @@ namespace passion_project.Controllers
             }
         }
 
-        // GET: Stocks/Create
+        // GET: Stocks/Create/5
         public ActionResult Create(int itemId)
         {
             // fetch the item with the corresponding itemId and send it to the create view
@@ -79,8 +79,11 @@ namespace passion_project.Controllers
             if (response.IsSuccessStatusCode)
             {
                 Item selectedItem = response.Content.ReadAsAsync<Item>().Result;
+                Stock stock = new Stock();
+                stock.itemId = itemId;
+                stock.item = selectedItem;
                 
-                return View(selectedItem);
+                return View(stock);
             }
             else
             {
@@ -101,8 +104,8 @@ namespace passion_project.Controllers
             //if the insertion was a success it displays the new brand details by redirecting to the details page
             if (response.IsSuccessStatusCode)
             {
-                int stockId = response.Content.ReadAsAsync<int>().Result;
-                return RedirectToAction("Details", new { id = stockId });
+                int itemId = response.Content.ReadAsAsync<int>().Result;
+                return RedirectToAction("Details","Items",new { id = itemId });
             }
             else
             {

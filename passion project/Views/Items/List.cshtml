@@ -1,0 +1,55 @@
+﻿@model IEnumerable<passion_project.Models.Item>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.brand.name)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="~/Content/Items/@item.image" alt="item image" width="250" height="300" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.brand.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.itemId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.itemId }) |
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.itemId })
+        </td>
+    </tr>
+}
+
+</table>

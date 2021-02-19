@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using passion_project.Models;
@@ -20,7 +23,7 @@ namespace passion_project.Controllers
         [ResponseType(typeof(IEnumerable<Item>))]
         public IHttpActionResult GetItems()
         {
-            return Ok(db.items.Include("brand").ToList());
+            return Ok(db.items.ToList());
         }
 
         /// <summary>
@@ -39,7 +42,7 @@ namespace passion_project.Controllers
         [ResponseType(typeof(Item))]
         public IHttpActionResult GetItem(int id)
         {
-            Item item = db.items.Include("brand").Include("stocks").Where(i => i.itemId == id).FirstOrDefault<Item>();
+            Item item = db.items.Where(i => i.itemId == id).FirstOrDefault<Item>();
             if (item == null)
             {
                 return NotFound();
@@ -84,6 +87,75 @@ namespace passion_project.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Receives item image data and uploads it to the webserver 
+        /// </summary>
+        /// <param name="id">the item id</param>
+        /// <returns>status code 200 if successful.</returns>
+        /// <example>
+        /// curl -F image=@file.jpg "https://localhost:xx/api/ItemsData/updateItemImage/2"
+        /// POST: api/ItemsData/UpdateItemImage/3
+        /// HEADER: enctype=multipart/form-data
+        /// FORM-DATA: image
+        /// </example>
+       
+        [HttpPost]
+        public IHttpActionResult UpdateItemImage(int id)
+        {
+            
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                Debug.WriteLine("Received multipart form data.");
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files Received: " + numfiles);
+
+                //Check if a file is posted
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var itemImg = HttpContext.Current.Request.Files[0];
+                    //Check if the file is empty
+                    if (itemImg.ContentLength > 0)
+                    {
+                        var imageTypes = new[] { "jpeg", "jpg", "png", "gif"};
+                        var extension = Path.GetExtension(itemImg.FileName).Substring(1);
+                        //Check the extension of the file
+                        if (imageTypes.Contains(extension))
+                        {
+                            try
+                            {
+                                //file name is the id of the image
+                                string fn = id + "." + extension;
+
+                                //get a direct file path to ~/Content/Items/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Items/"), fn);
+
+                                //save the file
+                                itemImg.SaveAs(path);
+
+                                //if these are all successful then we can set the item image value
+                                //Update the item image in the database
+                                Item SelectedItem = db.items.Find(id);
+                                SelectedItem.image = fn;
+                                db.Entry(SelectedItem).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Item Image was not saved successfully.");
+                                Debug.WriteLine("Exception:" + ex);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            return Ok();
+        }
+
         // POST: api/ItemsData/AddItem
         [ResponseType(typeof(Item))]
         [HttpPost]
@@ -93,11 +165,11 @@ namespace passion_project.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            item.createdDate = DateTime.Now;
             db.items.Add(item);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = item.itemId }, item);
+            return Ok(item.itemId);
         }
 
         // DELETE: api/ItemsData/DeleteItem/5
@@ -110,15 +182,22 @@ namespace passion_project.Controllers
             {
                 return NotFound();
             }
-
-            db.items.Remove(item);
-            //remove the item's stocks
+            //also delete image from path
+            string path = HttpContext.Current.Server.MapPath("~/Content/Items/" + item.image);
+            if (System.IO.File.Exists(path))
+            {
+                Debug.WriteLine("File exists... preparing to delete!");
+                System.IO.File.Delete(path);
+            }            
+            /*//remove the item's stocks
             ICollection<Stock> stocks = db.stocks.Where(s => s.itemId == item.itemId).ToList<Stock>();
             foreach(Stock stock in stocks)
             {
                 db.stocks.Remove(stock);
             }
+            */
 
+            db.items.Remove(item);
             db.SaveChanges();
 
             return Ok(item);

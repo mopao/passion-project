@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Script.Serialization;
 using passion_project.Models;
+using System.Diagnostics;
+using passion_project.Models.ViewModel;
 
 namespace passion_project.Controllers
 {
@@ -38,6 +40,12 @@ namespace passion_project.Controllers
             if (response.IsSuccessStatusCode)
             {
                 IEnumerable<Item> listItems = response.Content.ReadAsAsync<IEnumerable<Item>>().Result;
+                foreach(Item item in listItems)
+                {
+                    url = "BrandsData/GetBrand/" + item.brandId;
+                    response = client.GetAsync(url).Result;
+                    item.brand= response.Content.ReadAsAsync<Brand>().Result;
+                }
                 return View(listItems);
             }
             else
@@ -56,7 +64,7 @@ namespace passion_project.Controllers
             {
                 Item selectedItem = response.Content.ReadAsAsync<Item>().Result;
 
-               /* //retrieve the item's brand
+               //retrieve the item's brand
                 url = "BrandsData/GetBrand/" + selectedItem.brandId;
                 response = client.GetAsync(url).Result;
                 selectedItem.brand = response.Content.ReadAsAsync<Brand>().Result;
@@ -65,7 +73,7 @@ namespace passion_project.Controllers
                 url = "ItemsData/GetItemStocks/" + id;
                 response = client.GetAsync(url).Result;
                 selectedItem.stocks = response.Content.ReadAsAsync<IEnumerable<Stock>>().Result;
-               */
+                
 
                 return View(selectedItem);
             }
@@ -83,8 +91,14 @@ namespace passion_project.Controllers
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
+                ItemView itemView = new ItemView();
                 IEnumerable<Brand> brands = response.Content.ReadAsAsync<IEnumerable<Brand>>().Result;
-                return View(brands);
+                List<Gender> genders = new List<Gender>();
+                genders.Add(Gender.Men);
+                genders.Add(Gender.Women);
+                itemView.brands = brands;
+                itemView.genders = genders;
+                return View(itemView);
             }
             else
             {
@@ -94,10 +108,11 @@ namespace passion_project.Controllers
 
         // POST: Items/Create
         [HttpPost]
-        public ActionResult Create(Item newItem)
+        [ValidateAntiForgeryToken()]
+        public ActionResult Create(Item newItem, HttpPostedFileBase image)
         {
             //insert the new Item
-            string url = "ItemsData/AddItem";
+            string url = "ItemsData/AddItem";         
             HttpContent content = new StringContent(jss.Serialize(newItem));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -106,6 +121,14 @@ namespace passion_project.Controllers
             if (response.IsSuccessStatusCode)
             {
                 int itemId = response.Content.ReadAsAsync<int>().Result;
+                //Send over image data for player
+                url = "ItemsData/updateItemImage/" + itemId;
+                Debug.WriteLine("Received item picture " + image.FileName);
+                MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                HttpContent imagecontent = new StreamContent(image.InputStream);
+                requestcontent.Add(imagecontent, "image", image.FileName);
+                response = client.PostAsync(url, requestcontent).Result;
+                
                 return RedirectToAction("Details", new { id = itemId });
             }
             else
@@ -123,7 +146,21 @@ namespace passion_project.Controllers
             if (response.IsSuccessStatusCode)
             {
                 Item selectedItem = response.Content.ReadAsAsync<Item>().Result;
-                return View(selectedItem);
+                
+                url = "BrandsData/GetBrands";
+                response = client.GetAsync(url).Result;
+                
+                IEnumerable<Brand> brands = response.Content.ReadAsAsync<IEnumerable<Brand>>().Result;
+                List<Gender> genders = new List<Gender>();
+                genders.Add(Gender.Men);
+                genders.Add(Gender.Women);
+
+                ItemView itemView = new ItemView();
+                itemView.brands = brands;
+                itemView.genders = genders;
+                itemView.item = selectedItem;
+                return View(itemView);
+                
             }
             else
             {
@@ -133,10 +170,15 @@ namespace passion_project.Controllers
 
         // POST: Items/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Item updatedItem)
+        [ValidateAntiForgeryToken()]
+        public ActionResult Edit(int id, Item updatedItem, HttpPostedFileBase image, string oldImage)
         {
             //insert the updated stock
             string url = "ItemsData/UpdateItem/" + id;
+            if(updatedItem.image == null)
+            {
+                updatedItem.image = oldImage;
+            }
             HttpContent content = new StringContent(jss.Serialize(updatedItem));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -144,6 +186,18 @@ namespace passion_project.Controllers
             //if the insertion was a success it displays the new brand details by redirecting to the details page
             if (response.IsSuccessStatusCode)
             {
+                if(image != null)
+                {
+                    //Send over image data for player
+                    url = "ItemsData/updateItemImage/" + id;
+                    Debug.WriteLine("Received item image " + image.FileName);
+
+                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                    HttpContent imagecontent = new StreamContent(image.InputStream);
+                    requestcontent.Add(imagecontent, "image", image.FileName);
+                    response = client.PostAsync(url, requestcontent).Result;
+                }
+                            
                 return RedirectToAction("Details", new { id = id });
             }
             else
@@ -171,6 +225,7 @@ namespace passion_project.Controllers
 
         // POST: Items/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken()]
         public ActionResult Delete(int id, Item item)
         {
             //delete the item

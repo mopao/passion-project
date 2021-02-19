@@ -1,0 +1,29 @@
+﻿@model passion_project.Models.Item
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Confirm your action</h2>
+
+@Html.ActionLink("Back to The List of Items", "List")
+
+<h3>Are you sure you want to delete this item?</h3>
+<div>
+
+    <div>
+        <img src="~/Content/Items/@Model.image" alt="item image" width="300" height="300" />
+
+    </div>
+
+    @using (Html.BeginForm("Delete", "Items", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.itemId, new { Name = "id" })
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" />
+
+        </div>
+    }
+</div>
