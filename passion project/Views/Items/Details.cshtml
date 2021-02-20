@@ -21,7 +21,7 @@
                </dt>
 
                <dd>
-                   @Html.DisplayFor(model => model.brand.name)
+                   @Html.ActionLink(Model.brand.name,"Details","Brands",new { id=Model.brandId},null)
                </dd>
 
                <dt>

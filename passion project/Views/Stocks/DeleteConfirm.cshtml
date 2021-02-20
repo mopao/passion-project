@@ -1,0 +1,26 @@
+﻿@model passion_project.Models.Stock
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+@Html.ActionLink("Back", "Details", new { id = Model.stockId })
+<h2>Confirm your action</h2>
+
+<h3>Are you sure you want to delete the stock with size   @Html.DisplayFor(model => model.size)?</h3>
+<div>
+
+
+
+
+    @using (Html.BeginForm("Delete", "Stocks", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.stockId, new { Name = "id" })
+        @Html.HiddenFor(model => model.itemId)
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" />
+
+        </div>
+    }
+</div>

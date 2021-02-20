@@ -32,6 +32,9 @@
     </table>
 </div>
 <p>
+    @Html.ActionLink("Back to The Item", "Details", "Items", new { id = Model.itemId }, null)|
     @Html.ActionLink("Edit", "Edit", new { id = Model.stockId }) |
-    @Html.ActionLink("Back to The Item", "Details","Items",new { id = Model.itemId },null)
+    @Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.stockId }) |
+
+
 </p>

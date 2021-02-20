@@ -28,11 +28,16 @@ namespace passion_project.Controllers
             return Ok(db.stocks.Include("item").ToList());
         }
 
-        // GET: api/StocksData/GetStock/5
+        /// <summary>
+        /// gets the stock with a specified id in the system
+        /// </summary>
+        /// <param name="id"> a stock id</param>
+        /// <returns> the stock with the specified id</returns>
+        /// <example>GET: api/StocksData/GetStock/5</example>
         [ResponseType(typeof(Stock))]
         public IHttpActionResult GetStock(int id)
         {
-            Stock stock = db.stocks.Include("item").Where(s => s.stockId == id).FirstOrDefault();
+            Stock stock = db.stocks.Include("item").Where(s => s.stockId == id ).FirstOrDefault();
             if (stock == null)
             {
                 return NotFound();
@@ -41,7 +46,13 @@ namespace passion_project.Controllers
             return Ok(stock);
         }
 
-        // POST: api/StocksData/UpdateStock/5  
+        /// <summary>
+        /// updates a stock in the system
+        /// </summary>
+        /// <param name="id"> a stock id</param>
+        /// <param name="stock"> a stock to update</param>
+        /// <returns>status code 200 if it was successful</returns>
+        /// <example>POST: api/StocksData/UpdateStock/5</example>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateStock(int id, Stock stock)
@@ -77,7 +88,12 @@ namespace passion_project.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/StocksData/AddStock
+        /// <summary>
+        /// adds a new stock in the system
+        /// </summary>
+        /// <param name="stock"> a stock to add</param>
+        /// <returns> the added stock</returns>
+        /// <example>POST: api/StocksData/AddStock</example>
         [ResponseType(typeof(Stock))]
         [HttpPost]
         public IHttpActionResult AddStock(Stock stock)
@@ -94,7 +110,12 @@ namespace passion_project.Controllers
             return Ok(stock.itemId);
         }
 
-        // DELETE: api/StocksData/DeleteStock/5
+        /// <summary>
+        /// delete a stock in the database
+        /// </summary>
+        /// <param name="id">a stock id</param>
+        /// <returns> the deleted stock</returns>
+        /// <example>DELETE: api/StocksData/DeleteStock/5</example>
         [ResponseType(typeof(Stock))]
         [HttpPost]
         public IHttpActionResult DeleteStock(int id)

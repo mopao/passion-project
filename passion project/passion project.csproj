@@ -298,6 +298,10 @@
     <Content Include="Views\Stocks\Create.cshtml" />
     <Content Include="Views\Stocks\Details.cshtml" />
     <Content Include="Views\Stocks\Edit.cshtml" />
+    <Content Include="Views\Stocks\DeleteConfirm.cshtml" />
+    <Content Include="Views\Brands\Error.cshtml" />
+    <Content Include="Views\Items\Error.cshtml" />
+    <Content Include="Views\Stocks\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

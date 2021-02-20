@@ -16,14 +16,24 @@ namespace passion_project.Controllers
     {
         private PassionDataContext db = new PassionDataContext();
 
-        // GET: api/BrandsData/GetBrands
+
+        /// <summary>
+        /// gets list of brands in the system       
+        /// </summary>
+        /// <returns>List of items in the database</returns>
+        /// <example> GET: api/BrandsData/GetBrands </example>
         [ResponseType(typeof(IEnumerable<Brand>))]
         public IHttpActionResult GetBrands()
         {
-            return Ok(db.brands.ToList());
+            return Ok(db.brands.OrderBy(b => b.name).ToList());
         }
+        /// <summary>
+        /// gets the brand with a given id in the system
+        /// </summary>
+        /// <param name="id"> a brand id</param>
+        /// <returns> the brand with the specified id</returns>
+        /// <example>GET: api/BrandsData/GetBrand/5</example>
 
-        // GET: api/BrandsData/GetBrand/5
         [ResponseType(typeof(Brand))]
         public IHttpActionResult GetBrand(int id)
         {
@@ -48,8 +58,14 @@ namespace passion_project.Controllers
         {
             return Ok(db.items.Where(i => i.brandId == id).ToList());
         }
+        /// <summary>
+        /// updates the brand with a specified id in the system
+        /// </summary>
+        /// <param name="id"> a brand id</param>
+        /// <param name="brand"> the brand to update</param>
+        /// <returns>status code 200 if successful.</returns>
+        /// <example>POST: api/BrandsData/UpdateBrand/5</example>
 
-        // POST: api/BrandsData/UpdateBrand/5
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateBrand(int id, [FromBody]Brand brand)
@@ -84,8 +100,13 @@ namespace passion_project.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        /// <summary>
+        /// adds a brand in the system
+        /// </summary>
+        /// <param name="brand"> the brand to add</param>
+        /// <returns> the brand added</returns>
+        /// <example>POST: api/BrandsData/AddBrand</example>
 
-        // POST: api/BrandsData/AddBrand
         [ResponseType(typeof(Brand))]
         [HttpPost]
         public IHttpActionResult AddBrand([FromBody]Brand brand)
@@ -101,8 +122,13 @@ namespace passion_project.Controllers
 
             return  Ok(brand.brandId);
         }
+        /// <summary>
+        /// delete a brand in the database
+        /// </summary>
+        /// <param name="id"> id of the brand to delete</param>
+        /// <returns> the deleted brand in the database</returns>
+        /// <example>DELETE: api/BrandsData/DeleteBrand/5</example>
 
-        // DELETE: api/BrandsData/DeleteBrand/5
         [ResponseType(typeof(Brand))]
         [HttpPost]
         public IHttpActionResult DeleteBrand(int id)

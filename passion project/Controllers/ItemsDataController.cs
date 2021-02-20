@@ -19,7 +19,12 @@ namespace passion_project.Controllers
     {
         private PassionDataContext db = new PassionDataContext();
 
-        // GET: api/ItemsData/GetItems
+        /// <summary>
+        /// gets all the items in the system
+        /// </summary>
+        /// <returns> list of items in the database</returns>
+        /// <example>GET: api/ItemsData/GetItems</example>
+
         [ResponseType(typeof(IEnumerable<Item>))]
         public IHttpActionResult GetItems()
         {
@@ -35,10 +40,15 @@ namespace passion_project.Controllers
         [ResponseType(typeof(IEnumerable<Stock>))]
         public IHttpActionResult GetItemStocks(int id)
         {
-            return Ok(db.stocks.Where(s => s.itemId == id).ToList());
+            return Ok(db.stocks.Where(s => s.itemId == id && s.quantity > 0).OrderBy(s=> s.size).ToList());
         }
+        /// <summary>
+        /// gets the item with an specified id in the system
+        /// </summary>
+        /// <param name="id"> an item id</param>
+        /// <returns> the item with the id specified</returns>
+        /// <example>GET: api/ItemsData/GetItem/5</example>
 
-        // GET: api/ItemsData/GetItem/5
         [ResponseType(typeof(Item))]
         public IHttpActionResult GetItem(int id)
         {
@@ -51,7 +61,13 @@ namespace passion_project.Controllers
             return Ok(item);
         }
 
-        // POST: api/ItemsData/UpdateItem/5
+        /// <summary>
+        /// update an item in the system
+        /// </summary>
+        /// <param name="id"> an item id</param>
+        /// <param name="item"> the item to update</param>
+        /// <returns>status code 200 if successful.</returns>
+        /// <example>POST: api/ItemsData/UpdateItem/5</example>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateItem(int id, Item item)
@@ -156,7 +172,12 @@ namespace passion_project.Controllers
             return Ok();
         }
 
-        // POST: api/ItemsData/AddItem
+        /// <summary>
+        /// add a new item in the system
+        /// </summary>
+        /// <param name="item"> item to add</param>
+        /// <returns> the added item</returns>
+        /// <example>POST: api/ItemsData/AddItem</example>
         [ResponseType(typeof(Item))]
         [HttpPost]
         public IHttpActionResult AddItem(Item item)
@@ -172,7 +193,12 @@ namespace passion_project.Controllers
             return Ok(item.itemId);
         }
 
-        // DELETE: api/ItemsData/DeleteItem/5
+        /// <summary>
+        /// delete an item in the system
+        /// </summary>
+        /// <param name="id"> an item id</param>
+        /// <returns> the deleted item </returns>
+        /// <example>DELETE: api/ItemsData/DeleteItem/5</example>
         [ResponseType(typeof(Item))]
         [HttpPost]
         public IHttpActionResult DeleteItem(int id)

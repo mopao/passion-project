@@ -27,7 +27,7 @@ namespace passion_project.Controllers
             //server address
             client.BaseAddress = new Uri("https://localhost:44328/api/");
             client.DefaultRequestHeaders.Accept.Add(
-            new MediaTypeWithQualityHeaderValue("application/json"));
+            new MediaTypeWithQualityHeaderValue("application/json"));           
 
         }
         // GET: Stocks/List
@@ -122,6 +122,11 @@ namespace passion_project.Controllers
             if (response.IsSuccessStatusCode)
             {
                 Stock selectedStock = response.Content.ReadAsAsync<Stock>().Result;
+
+                // get the item whose the stock is for
+                url = "ItemsData/GetItem/" + selectedStock.itemId;
+                response = client.GetAsync(url).Result;
+                selectedStock.item = response.Content.ReadAsAsync<Item>().Result;
                 return View(selectedStock);
             }
             else
@@ -181,7 +186,7 @@ namespace passion_project.Controllers
             if (response.IsSuccessStatusCode)
             {
 
-                return RedirectToAction("List");
+                return RedirectToAction("Details","Items", new { id = stock.itemId});
             }
             else
             {
