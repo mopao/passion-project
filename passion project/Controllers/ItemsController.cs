@@ -146,7 +146,12 @@ namespace passion_project.Controllers
             if (response.IsSuccessStatusCode)
             {
                 Item selectedItem = response.Content.ReadAsAsync<Item>().Result;
-                
+
+                //retrieve the item's stocks
+                url = "ItemsData/GetItemStocks/" + id;
+                response = client.GetAsync(url).Result;
+                selectedItem.stocks = response.Content.ReadAsAsync<IEnumerable<Stock>>().Result;
+
                 url = "BrandsData/GetBrands";
                 response = client.GetAsync(url).Result;
                 

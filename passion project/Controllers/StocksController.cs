@@ -56,12 +56,12 @@ namespace passion_project.Controllers
             if (response.IsSuccessStatusCode)
             {
                 Stock selectedStock = response.Content.ReadAsAsync<Stock>().Result;
-                /*
+               
                 // get the item whose the stock is for
                 url = "ItemsData/GetItem/" + selectedStock.itemId;
                 response = client.GetAsync(url).Result;
                 selectedStock.item = response.Content.ReadAsAsync<Item>().Result;
-                */
+                
                 return View(selectedStock);
             }
             else

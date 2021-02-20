@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Details";
 }
-| @Html.ActionLink("Add stock","Create","Stocks", new { itemId=Model.itemId},null)
+
 
 <h2>Item Details</h2>
 <div>
@@ -92,23 +92,18 @@
            </dl>
        </div>
        <div class="col-sm-5">
-          <table>
-              <caption>Available Stock(s)</caption>
-              <thead>
-                  <tr>
-                      <th>Size (US)</th>
-                      <th>Quantity</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  @foreach(var stock in Model.stocks)
-                  {
-                      <tr>
-                          <td>@stock.size </td><td>@stock.quantity</td>
-                      </tr>
-                  }
-              </tbody>
-          </table>
+       <section>
+           <h3>Available stocks</h3>
+           <ul>
+               @foreach (var stock in Model.stocks)
+               {
+                   
+               <li>@Html.ActionLink("For size "+@stock.size+" US, "+@stock.quantity+" pairs left.", "Details", "Stocks", new { id = @stock.stockId }, new { @class="edit-stock"})</li>
+              
+                   
+               }
+           </ul>
+       </section>
        </div>
    </div>
 </div>

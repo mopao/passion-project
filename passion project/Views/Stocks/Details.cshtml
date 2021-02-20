@@ -1,0 +1,37 @@
+﻿@model passion_project.Models.Stock
+
+@{
+    ViewBag.Title = "Details";
+    var itemName = "";
+    if (Model.item.name != null) {
+        itemName = Model.item.name;
+    }
+}
+
+<h2>Stock of item @itemName</h2>
+
+<div>
+    <h4>Detail</h4>
+    <hr />
+    
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.size) (US)</th>
+                <th>@Html.DisplayNameFor(model => model.quantity)</th>
+                <th>@Html.DisplayNameFor(model => model.createdDate)</th>
+            </tr>
+        </thead>
+        <tbody>    
+            <tr>
+                <td>@Html.DisplayFor(model => model.size)</td>
+                <td>@Html.DisplayFor(model => model.quantity)</td>
+                <td>@Html.DisplayFor(model => model.createdDate)</td>
+            </tr>            
+        </tbody>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.stockId }) |
+    @Html.ActionLink("Back to The Item", "Details","Items",new { id = Model.itemId },null)
+</p>

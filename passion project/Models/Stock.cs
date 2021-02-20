@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using System.ComponentModel;
 
 namespace passion_project.Models
 {
@@ -18,6 +18,7 @@ namespace passion_project.Models
         [Required]
         public int quantity { get; set; }
         [Required]
+        [DisplayName("Registration datetime")]
         public DateTime createdDate { get; set; }
         [ForeignKey("item")]
         public int itemId { get; set; }
