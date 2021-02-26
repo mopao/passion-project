@@ -1,0 +1,17 @@
+﻿h2 {
+    text-align: center;
+    color: lightskyblue;
+}
+
+.div-button {
+    text-align: center;
+}
+
+.div-button a {
+    margin: 2em;
+    width: 15.5rem;
+}
+
+th{
+    text-transform:capitalize;
+}

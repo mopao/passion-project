@@ -1,4 +1,5 @@
 ﻿@model passion_project.Models.Item
+@Styles.Render("~/Content/Items/Details.css")
 
 @{
     ViewBag.Title = "Details";
@@ -7,107 +8,110 @@
 
 <h2>Item Details</h2>
 <div>
-    
+
     <hr />
-    <div>
-        <img src="~/Content/Items/@Model.image" alt="item image" width="300" height="300" />
+    <div class="div-img">
+        <img src="~/Content/Images/@Model.image" alt="item image" class="img-rounded" />
     </div>
-   <div class="row">
-       <div class="col-sm-7">
-           <dl class="dl-horizontal">
+    <div class="row">
+        <div class="col-sm-8 div-details">
+            <dl class="dl-horizontal">
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.brand)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.brand):
+                </dt>
 
-               <dd>
-                   @Html.ActionLink(Model.brand.name,"Details","Brands",new { id=Model.brandId},null)
-               </dd>
+                <dd>
+                    @Html.ActionLink(Model.brand.name, "Details", "Brands", new { id = Model.brandId }, null)
+                </dd>
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.name)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.name):
+                </dt>
 
-               <dd>
-                   @Html.DisplayFor(model => model.name)
-               </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.name)
+                </dd>
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.code)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.code):
+                </dt>
 
-               <dd>
-                   @Html.DisplayFor(model => model.code)
-               </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.code)
+                </dd>
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.color)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.color):
+                </dt>
 
-               <dd>
-                   <input type="color" value="@Model.color" readonly />
-               </dd>
+                <dd>
+                    <input type="color" value="@Model.color" readonly />
+                </dd>
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.gender)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.gender):
+                </dt>
 
-               <dd>
-                   @Html.DisplayFor(model => model.gender)
-               </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.gender)
+                </dd>
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.price)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.price)@Html.DisplayText("(Cad)"):
+                </dt>
 
-               <dd>
-                   @Html.DisplayFor(model => model.price)
-               </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.price)
+                </dd>
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.composition)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.composition):
+                </dt>
 
-               <dd>
-                   @Html.DisplayFor(model => model.composition)
-               </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.composition)
+                </dd>
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.details)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.details):
+                </dt>
 
-               <dd>
-                   @Html.DisplayFor(model => model.details)
-               </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.details)
+                </dd>
 
 
-               <dt>
-                   @Html.DisplayNameFor(model => model.createdDate)
-               </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.createdDate):
+                </dt>
 
-               <dd>
-                   @Html.DisplayFor(model => model.createdDate)
-               </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.createdDate)
+                </dd>
 
-           </dl>
-       </div>
-       <div class="col-sm-5">
-       <section>
-           <h3>Available stocks</h3>
-           <ul>
-               @foreach (var stock in Model.stocks)
-               {
-                   
-               <li>@Html.ActionLink("For size "+@stock.size+" US, "+@stock.quantity+" pairs left.", "Details", "Stocks", new { id = @stock.stockId }, new { @class="edit-stock"})</li>
-              
-                   
-               }
-           </ul>
-       </section>
-       </div>
-   </div>
+            </dl>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <section>
+                <h3>Available stocks</h3>
+                <ul>
+                    @foreach (var stock in Model.stocks)
+                    {
+
+                        <li>@Html.ActionLink("For size " + @stock.size + " US, " + @stock.quantity + " pairs left.", "Details", "Stocks", new { id = @stock.stockId }, new { @class = "edit-stock" })</li>
+
+
+                    }
+                </ul>
+            </section>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.itemId }) |
-    @Html.ActionLink("Back to The List of Items", "List")
-</p>
+<div class="div-button">
+    @Html.ActionLink("Back to The List of Items", "List", null, new { @class = "btn btn-default" })|
+    @Html.ActionLink("Edit", "Edit", new { id = Model.itemId }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.itemId }, new { @class = "btn btn-danger" })
+
+</div>

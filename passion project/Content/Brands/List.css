@@ -4,3 +4,7 @@
 h2{
     color:lightskyblue;
 }
+
+tr > td:last-of-type a{
+    width:6.5rem;
+}

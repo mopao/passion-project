@@ -1,0 +1,39 @@
+﻿h2 ,h3{   
+    text-align: center;
+}
+h3{
+    margin-top:0px;
+}
+
+h2 {
+    color: lightskyblue;
+}
+
+.div-img{
+    width:60%;    
+    margin: auto;
+}
+
+img{
+    height:30rem;
+    margin:auto;
+    display:block;
+}
+
+div.row{
+    border-top:1px groove lightgray;
+    padding-top:1em;
+}
+
+dt, dd{
+    text-transform:capitalize;
+}
+
+.div-button{
+    text-align:center;
+}
+
+.div-button a{
+    margin:2em;
+    width:17.5em;
+}

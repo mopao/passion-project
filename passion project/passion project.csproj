@@ -234,6 +234,13 @@
     <Content Include="Content\Brands\Details.css" />
     <Content Include="Content\Brands\Edit.css" />
     <Content Include="Content\Brands\List.css" />
+    <Content Include="Content\Items\Delete.css" />
+    <Content Include="Content\Items\Details.css" />
+    <Content Include="Content\Items\Edit.css" />
+    <Content Include="Content\Items\List.css" />
+    <Content Include="Content\Stocks\Delete.css" />
+    <Content Include="Content\Stocks\Details.css" />
+    <Content Include="Content\Stocks\Edit.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -305,7 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Items\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

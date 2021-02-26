@@ -1,0 +1,12 @@
+﻿h2 {
+    text-align: center;
+    color: lightskyblue;
+}
+
+p#deleteMsg {
+    margin: 2em;
+    color: orange;
+    font-size: 1.5em;
+}
+
+

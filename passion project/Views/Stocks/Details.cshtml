@@ -1,9 +1,12 @@
 ﻿@model passion_project.Models.Stock
+@Styles.Render("~/Content/Stocks/Details.css")
+
 
 @{
     ViewBag.Title = "Details";
     var itemName = "";
-    if (Model.item.name != null) {
+    if (Model.item.name != null)
+    {
         itemName = Model.item.name;
     }
 }
@@ -11,10 +14,10 @@
 <h2>Stock of item @itemName</h2>
 
 <div>
-    <h4>Detail</h4>
+    <h3>Details</h3>
     <hr />
-    
-    <table>
+
+    <table class="table table-responsive">
         <thead>
             <tr>
                 <th>@Html.DisplayNameFor(model => model.size) (US)</th>
@@ -22,19 +25,19 @@
                 <th>@Html.DisplayNameFor(model => model.createdDate)</th>
             </tr>
         </thead>
-        <tbody>    
+        <tbody>
             <tr>
                 <td>@Html.DisplayFor(model => model.size)</td>
                 <td>@Html.DisplayFor(model => model.quantity)</td>
                 <td>@Html.DisplayFor(model => model.createdDate)</td>
-            </tr>            
+            </tr>
         </tbody>
     </table>
 </div>
-<p>
-    @Html.ActionLink("Back to The Item", "Details", "Items", new { id = Model.itemId }, null)|
-    @Html.ActionLink("Edit", "Edit", new { id = Model.stockId }) |
-    @Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.stockId }) |
+<div class="div-button">
+    @Html.ActionLink("Back to The Item", "Details", "Items", new { id = Model.itemId }, new { @class = "btn btn-default" })|
+    @Html.ActionLink("Edit", "Edit", new { id = Model.stockId }, new { @class = "btn btn-info" }) |
+    @Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.stockId }, new { @class = "btn btn-danger" }) 
 
 
-</p>
+</div>

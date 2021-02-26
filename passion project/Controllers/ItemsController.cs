@@ -16,6 +16,7 @@ namespace passion_project.Controllers
     {
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         private static readonly HttpClient client;
+        private int itemPerRow = 4;
 
         //constructor of the controller
         static ItemsController()
@@ -44,8 +45,10 @@ namespace passion_project.Controllers
                 {
                     url = "BrandsData/GetBrand/" + item.brandId;
                     response = client.GetAsync(url).Result;
-                    item.brand= response.Content.ReadAsAsync<Brand>().Result;
+                    item.brand= response.Content.ReadAsAsync<Brand>().Result;                    
                 }
+                ViewBag.itemPerRow = itemPerRow;
+                ViewBag.nberOfRows = (int)Math.Ceiling(((decimal)listItems.Count())/itemPerRow);
                 return View(listItems);
             }
             else

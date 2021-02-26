@@ -11,3 +11,14 @@ form{
     max-width:40%;
     margin:auto;
 }
+
+.div-button {
+
+    margin-top:2em;
+    
+}
+
+    .div-button a {
+        margin: 2em;
+        width: 17.5em;
+    }

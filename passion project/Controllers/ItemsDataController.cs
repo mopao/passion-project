@@ -144,7 +144,7 @@ namespace passion_project.Controllers
                                 string fn = id + "." + extension;
 
                                 //get a direct file path to ~/Content/Items/{id}.{extension}
-                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Items/"), fn);
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Images/"), fn);
 
                                 //save the file
                                 itemImg.SaveAs(path);
@@ -209,7 +209,7 @@ namespace passion_project.Controllers
                 return NotFound();
             }
             //also delete image from path
-            string path = HttpContext.Current.Server.MapPath("~/Content/Items/" + item.image);
+            string path = HttpContext.Current.Server.MapPath("~/Content/Images/" + item.image);
             if (System.IO.File.Exists(path))
             {
                 Debug.WriteLine("File exists... preparing to delete!");

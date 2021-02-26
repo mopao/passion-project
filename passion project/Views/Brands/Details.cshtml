@@ -27,7 +27,8 @@
         </tbody>
     </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.brandId }) |
-    @Html.ActionLink("Back to The List of Brands", "List")
-</p>
+<div class="div-button">
+    @Html.ActionLink("Back to The List of Brands", "List", null, new { @class = "btn btn-default" })|
+    @Html.ActionLink("Edit", "Edit", new { id = Model.brandId }, new { @class = "btn btn-info" }) 
+
+</div>

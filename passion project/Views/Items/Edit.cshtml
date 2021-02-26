@@ -1,9 +1,10 @@
 ﻿@model passion_project.Models.ViewModel.ItemView
+@Styles.Render("~/Content/Items/Edit.css")
 
 @{
     ViewBag.Title = "Edit";
 }
-
+@Html.ActionLink("Back to The List of Items", "List", null, new { id = "back-link" })
 <h2>Edit</h2>
 <div class="row">
     <div class="col-sm-7">
@@ -19,7 +20,7 @@
 
 
             <div class="form-horizontal">
-                <h4>Item</h4>
+                <h3>Item</h3>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -107,13 +108,13 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Update" class="btn btn-default" />
+                        <input type="submit" value="Update" class="btn btn-warning" />
                     </div>
                 </div>
             </div>
         }
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
         <section>
             <h3>Available stocks</h3>
             <ul>
@@ -127,7 +128,10 @@
             </ul>
         </section>
     </div>
+    <div class="col-sm-1">
+        @Html.ActionLink("Add stock", "Create", "Stocks", new { itemId = Model.item.itemId }, new { @class = "btn btn-info" })
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Back to The List of Items", "List") | @Html.ActionLink("Add stock", "Create", "Stocks", new { itemId = Model.item.itemId }, null)
-</div>
+
+
+

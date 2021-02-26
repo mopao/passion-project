@@ -5,8 +5,11 @@
 h2 {
     color: lightskyblue;
 }
-td{
-    padding:0.5em;
+tr>td:first-of-type{   
+    font-weight:bold;
+}
+td {
+    padding: 0.5em;
 }
 table{
     max-width:40%;
@@ -16,4 +19,14 @@ th{
     text-align:center;
     font-size:1.5em;
     padding-bottom:1em;
+}
+
+.div-button {
+   margin-top:2em;
+   text-align:center;
+}
+
+.div-button a {
+    margin: 2em;
+    width: 17.5em;
 }

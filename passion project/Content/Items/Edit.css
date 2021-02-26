@@ -1,0 +1,17 @@
+﻿h2 {
+    color: lightskyblue;
+    text-align:center;
+}
+
+div.row{
+    margin-top:7rem;
+}
+
+h3{
+    margin-top:0px;
+}
+
+#back-link{
+    display:inline-block;
+    margin-top:0.5em;
+}

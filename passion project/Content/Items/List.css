@@ -1,0 +1,19 @@
+﻿
+
+h2 {
+    color: lightskyblue;
+    text-align:center;
+}
+
+.div-item-img{
+   
+    width:100%;
+}
+
+.div-item-name, .div-item-name, .div-item-brand ,.div-item-price{
+    text-align: center;
+    text-transform: capitalize;
+}
+
+
+

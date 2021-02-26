@@ -1,0 +1,29 @@
+﻿h2 {
+    color: lightskyblue;
+    text-align: center;
+}
+
+#back-link {
+    display: inline-block;
+    margin-top: 0.5em;
+}
+
+.div-img {
+    width: 60%;
+    margin: auto;
+}
+
+img {
+    height: 30rem;
+    margin: auto;
+    display: block;
+}
+p#deleteMsg {
+    margin: 2em;
+    color: orange;
+    font-size: 1.5em;
+}
+
+form{
+    text-align:center;
+}

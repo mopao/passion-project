@@ -28,12 +28,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Update" class="btn btn-default" />
+                <input type="submit" value="Update" class="btn btn-warning" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to The List Of Brands", "List")
+<div class="div-button">
+    @Html.ActionLink("Back to The List Of Brands", "List", null, new { @class = "btn btn-default" })
 </div>
