@@ -58,7 +58,7 @@
                 </dd>
 
                 <dt>
-                    @Html.DisplayNameFor(model => model.price)@Html.DisplayText("(Cad)"):
+                    @Html.DisplayNameFor(model => model.price)<span>(Cad)</span>:
                 </dt>
 
                 <dd>
@@ -96,15 +96,27 @@
         <div class="col-sm-3">
             <section>
                 <h3>Available stocks</h3>
-                <ul>
-                    @foreach (var stock in Model.stocks)
-                    {
 
-                        <li>@Html.ActionLink("For size " + @stock.size + " US, " + @stock.quantity + " pairs left.", "Details", "Stocks", new { id = @stock.stockId }, new { @class = "edit-stock" })</li>
+                
+                @if (Model.stocks.Count() == 0)
+                {
+                   <p>no stock available.</p>
+                }
+                else
+                {
+                    <ul>
+                        @foreach (var stock in Model.stocks)
+                        {
+
+                            <li>@Html.ActionLink("For size " + @stock.size + " US, " + @stock.quantity + " pairs left.", "Details", "Stocks", new { id = @stock.stockId }, new { @class = "edit-stock" })</li>
 
 
-                    }
-                </ul>
+                        }
+
+                    </ul>
+
+                }
+
             </section>
         </div>
     </div>

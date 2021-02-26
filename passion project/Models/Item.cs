@@ -34,6 +34,7 @@ namespace passion_project.Models
         [DisplayName("Registered Datetime")]
         public DateTime createdDate { get; set; }
         [ForeignKey("brand")]
+        [DisplayName("Brand")]
         public int brandId { get; set; }
         public Brand brand { get; set; }
         public IEnumerable <Stock> stocks { get; set; }

@@ -9,11 +9,16 @@ h2 {
    
     width:100%;
 }
-
-.div-item-name, .div-item-name, .div-item-brand ,.div-item-price{
-    text-align: center;
-    text-transform: capitalize;
+.div-item-img img{
+    display:block;
+    height:15em;
+    margin:auto;
 }
+
+    .div-item-name, .div-item-name, .div-item-brand, .div-item-price {
+        text-align: center;
+        text-transform: capitalize;
+    }
 
 
 

@@ -234,10 +234,12 @@
     <Content Include="Content\Brands\Details.css" />
     <Content Include="Content\Brands\Edit.css" />
     <Content Include="Content\Brands\List.css" />
+    <Content Include="Content\Items\Create.css" />
     <Content Include="Content\Items\Delete.css" />
     <Content Include="Content\Items\Details.css" />
     <Content Include="Content\Items\Edit.css" />
     <Content Include="Content\Items\List.css" />
+    <Content Include="Content\Stocks\Create.css" />
     <Content Include="Content\Stocks\Delete.css" />
     <Content Include="Content\Stocks\Details.css" />
     <Content Include="Content\Stocks\Edit.css" />

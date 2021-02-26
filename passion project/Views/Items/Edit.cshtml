@@ -88,7 +88,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.item.brandId, "brandId", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.item.brandId, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         <select name="brandId">
                             @foreach (var brand in Model.brands)
@@ -117,15 +117,24 @@
     <div class="col-sm-4">
         <section>
             <h3>Available stocks</h3>
-            <ul>
-                @foreach (var stock in Model.item.stocks)
-                {
+            @if (Model.item.stocks.Count() == 0)
+            {
+                <p>no stock available.</p>
+            }
+            else
+            {
+                <ul>
+                    @foreach (var stock in Model.item.stocks)
+                    {
 
-                    <li>For size  @stock.size  US  @stock.quantity  pairs left.</li>
+                        <li>@Html.ActionLink("For size " + @stock.size + " US, " + @stock.quantity + " pairs left.", "Details", "Stocks", new { id = @stock.stockId }, new { @class = "edit-stock" })</li>
 
 
-                }
-            </ul>
+                    }
+
+                </ul>
+
+            }
         </section>
     </div>
     <div class="col-sm-1">
