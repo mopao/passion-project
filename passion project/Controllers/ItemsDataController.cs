@@ -30,6 +30,129 @@ namespace passion_project.Controllers
         {
             return Ok(db.items.ToList());
         }
+        /// <summary>
+        /// Gets a list or items in the database alongside a status code (200 OK). Skips the first {startindex} records and takes {nberPerPage} records.
+        /// </summary>     
+        /// <param name="startIndex">The number of records to skip through</param>
+        /// <param name="nberPerPage">The number of records for each page</param
+        /// <returns>A list of items</returns>
+        /// <example>
+        /// GET: api/ItemsData/GetItemsPage/10/5
+        /// Retrieves the first 5 items after skipping 20 (third page)
+        /// </example>
+        [ResponseType(typeof(IEnumerable<Item>))]
+        [Route("api/ItemsData/GetItemsPage/{startIndex}/{nberPerPage}")]
+        public IHttpActionResult GetItemsPage(int startIndex, int nberPerPage)
+        {
+            return Ok(db.items.OrderBy(i => i.itemId).Skip(startIndex).Take(nberPerPage).ToList());
+        }
+
+        /// <summary>
+        /// gets all items associated with a gender in the system.
+        /// </summary>
+        /// <param name="gender">an item gender</param>
+        /// <returns>list of items associated with the gender</returns>
+        /// <example>GET: api/ItemsData/GetItemsByGender/1</example>
+        [ResponseType(typeof(IEnumerable<Item>))]
+        [Route("api/ItemsData/GetItemsByGender/{gender}")]
+        public IHttpActionResult GetItemsByGender(int gender)
+        {
+            return Ok(db.items.Where(s => s.gender == (Gender)gender).ToList());
+
+
+        }
+        /// <summary>
+        /// Gets a list of items in the database associated with a gender alongside a status code (200 OK). Skips the first {startindex} records and takes {nberPerPage} records.
+        /// </summary>
+        /// <param name="gender">an item gender</param>
+        /// <param name="startIndex">The number of records to skip through</param>
+        /// <param name="nberPerPage">The number of records for each page</param
+        /// <returns>list of items associated with the gender</returns>
+        /// <example>
+        /// Gender: 0=Men and 1= Women
+        /// GET: api/ItemsData/GetItemsByGenderPage/0/10/5
+        /// Retrieves the first 5 men items after skipping 20 (third page)
+        /// </example>
+        [ResponseType(typeof(IEnumerable<Item>))]
+        [Route("api/ItemsData/GetItemsByGenderPage/{gender}/{startIndex}/{nberPerPage}")]
+        public IHttpActionResult GetItemsByGenderPage(int gender, int startIndex, int nberPerPage)
+        {
+            return Ok(db.items.Where(s => s.gender == (Gender)gender).OrderBy(s => s.itemId).Skip(startIndex).Take(nberPerPage).ToList());
+
+
+        }
+
+        /// <summary>
+        /// gets all items associated with a brand in the system.
+        /// </summary>
+        /// <param name="brandId">a brand id</param>
+        /// <returns>list of items associated with the brand</returns>
+        /// <example>GET: api/ItemsData/GetItemsByBrand/1</example>
+        [ResponseType(typeof(IEnumerable<Item>))]
+        [Route("api/ItemsData/GetItemsByBrand/{brandId}")]
+        public IHttpActionResult GetItemsByBrand(int brandId)
+        {
+            return Ok(db.items.Where(s => s.brandId == brandId).ToList());
+
+
+        }
+        /// <summary>
+        /// Gets a list of items in the database associated with a brand alongside a status code (200 OK). 
+        /// Skips the first {startindex} records and takes {nberPerPage} records.
+        /// </summary>
+        /// <param name="brandId">a brand id</param>
+        /// <param name="startIndex">The number of records to skip through</param>
+        /// <param name="nberPerPage">The number of records for each page</param
+        /// <returns>list of items associated with the brand</returns>
+        /// <example>
+        /// Gender: 0=Men and 1= Women
+        /// GET: api/ItemsData/GetItemsByBrandPage/0/10/5
+        /// Retrieves the first 5 items associated with the brand after skipping 20 (third page)
+        /// </example>
+        [ResponseType(typeof(IEnumerable<Item>))]
+        [Route("api/ItemsData/GetItemsByBrandPage/{brandId}/{startIndex}/{nberPerPage}")]
+        public IHttpActionResult GetItemsByBrandPage(int brandId,int startIndex, int nberPerPage)
+        {
+            return Ok(db.items.Where(s => s.brandId == brandId).OrderBy(s => s.itemId).Skip(startIndex).Take(nberPerPage).ToList());
+
+
+        }
+        /// <summary>
+        /// gets all items associated with a brand and a gender
+        /// </summary>
+        /// <param name="brandId"> a brand id</param>
+        /// <param name="gender"> an item gender</param>
+        /// <returns>list of items associated with the brand and the gender</returns>
+        /// <example>GET: api/ItemsData/GetItemsByBrandAndGender/1/0</example>
+        [ResponseType(typeof(IEnumerable<Item>))]
+        [Route("api/ItemsData/GetItemsByBrandAndGender/{brandId}/{gender}")]
+        public IHttpActionResult GetItemsByBrandAndGender(int brandId,int gender)
+        {
+            return Ok(db.items.Where(s => s.brandId == brandId && s.gender == (Gender)gender).ToList());
+
+        }
+        /// <summary>
+        /// Gets a list of items in the database associated with a brand and a gender alongside a status code (200 OK). 
+        /// Skips the first {startindex} records and takes {nberPerPage} records. 
+        /// </summary>
+        /// <param name="brandId"></param>
+        /// <param name="gender"></param>
+        /// <param name="startIndex"></param>
+        /// <param name="nberPerPage"></param>
+        /// <returns>list of items associated with the brand and the gender</returns>
+        /// <example>
+        /// Gender: 0=Men and 1= Women
+        /// GET: api/ItemsData/GetItemsByBrandAndGenderPage/0/10/5
+        /// Retrieves the first 5 men items associated the brand after skipping 20 (third page)
+        /// </example>
+        [ResponseType(typeof(IEnumerable<Item>))]
+        [Route("api/ItemsData/GetItemsByBrandAndGenderPage/{brandId}/{gender}/{startIndex}/{nberPerPage}")]
+        public IHttpActionResult GetItemsByBrandAndGenderPage(int brandId, int gender, int startIndex, int nberPerPage)
+        {
+            return Ok(db.items.Where(s => s.brandId == brandId && s.gender == (Gender)gender)
+                .OrderBy(s => s.itemId).Skip(startIndex).Take(nberPerPage).ToList());
+
+        }
 
         /// <summary>
         /// get the item's stocks of an item in the database system.
@@ -38,6 +161,7 @@ namespace passion_project.Controllers
         /// <returns>list of stocks of the item with the provided id  </returns>
         /// <example>GET: api/ItemsData/GetItemStocks/1 </example>
         [ResponseType(typeof(IEnumerable<Stock>))]
+        
         public IHttpActionResult GetItemStocks(int id)
         {
             return Ok(db.stocks.Where(s => s.itemId == id && s.quantity > 0).OrderBy(s=> s.size).ToList());

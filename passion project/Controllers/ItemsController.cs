@@ -16,7 +16,8 @@ namespace passion_project.Controllers
     {
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         private static readonly HttpClient client;
-        private int itemPerRow = 4;
+        private int itemPerRow = 2;
+        private int itemPerPage = 4;
 
         //constructor of the controller
         static ItemsController()
@@ -33,22 +34,73 @@ namespace passion_project.Controllers
 
         }
         // GET: Items/List
-        public ActionResult List()
+        public ActionResult List(int pageNum = 1, int gender = -1, int brandId=-1)
         {
-            // fetch the list of stocks and send it to the list view
-            string url = "ItemsData/GetItems";
+            string url;
+            string paginatedUrl;
+
+            //build the url for the whole result and the paginated one.
+            if(brandId < 1 && gender <= Enum.GetValues(typeof(Gender)).Length -1 && gender >= 0)
+            {
+                url = "ItemsData/GetItemsByGender/"+gender;
+                paginatedUrl = "ItemsData/GetItemsByGenderPage/" + gender;
+            }
+            else if(brandId > 0 && gender < 0)
+            {
+                url = "ItemsData/GetItemsByBrand/" + brandId;
+                paginatedUrl = "ItemsData/GetItemsByBrandPage/" + brandId;
+            }
+            else if (brandId > 0 && gender <= Enum.GetValues(typeof(Gender)).Length - 1 && gender >= 0)
+            {
+                url = "ItemsData/GetItemsByBrandAndGender/" + brandId+"/"+gender;
+                paginatedUrl = "ItemsData/GetItemsByBrandPage/" + brandId + "/" + gender;
+            }
+            else
+            {
+                url = "ItemsData/GetItems";
+                paginatedUrl = "ItemsData/GetItemsPage";
+            }
+
+            
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
+                // --begin of pagination---
                 IEnumerable<Item> listItems = response.Content.ReadAsAsync<IEnumerable<Item>>().Result;
-                foreach(Item item in listItems)
+                //determines the max number of pages
+                int nberItems = listItems.Count();
+                int maxPageNber = (int)Math.Ceiling((decimal)nberItems / itemPerPage);
+                // Lower boundary for Max Page number
+                if (maxPageNber< 1) maxPageNber = 1;
+                // Lower boundary for Page Number
+                if (pageNum < 1) pageNum = 1;
+                // Upper Bound for Page Number
+                if (pageNum > maxPageNber) pageNum = maxPageNber;
+                // The Record Index of our Page Start
+                int startIndex = itemPerPage * (pageNum-1);
+
+                //Helps us generate the HTML which shows "Page 1 of ..." on the list view
+                ViewData["PageNum"] = pageNum;
+                ViewData["MaxPageNum"] = maxPageNber;
+                //ViewData["PageSummary"] = " " + pageNum + " of " + maxPageNber + " ";
+
+                // -- End of Pagination Algorithm --
+
+                // get players according to pagination
+                paginatedUrl += "/" + startIndex + "/" + itemPerPage;
+                response = client.GetAsync(paginatedUrl).Result;
+                listItems = response.Content.ReadAsAsync<IEnumerable<Item>>().Result;
+                foreach (Item item in listItems)
                 {
                     url = "BrandsData/GetBrand/" + item.brandId;
                     response = client.GetAsync(url).Result;
                     item.brand= response.Content.ReadAsAsync<Brand>().Result;                    
-                }
+                }                
                 ViewBag.itemPerRow = itemPerRow;
-                ViewBag.nberOfRows = (int)Math.Ceiling(((decimal)listItems.Count())/itemPerRow);
+                ViewBag.brandId = brandId;
+                ViewBag.gender = gender;
+                //calculate the number of rows needed to display all the items
+                ViewBag.nberOfRows = (int)Math.Ceiling(((decimal)listItems.Count())/itemPerRow);             
                 return View(listItems);
             }
             else

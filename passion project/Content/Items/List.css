@@ -15,10 +15,22 @@ h2 {
     margin:auto;
 }
 
-    .div-item-name, .div-item-name, .div-item-brand, .div-item-price {
-        text-align: center;
-        text-transform: capitalize;
-    }
+.div-item-name, .div-item-name, .div-item-brand, .div-item-price {
+    text-align: center;
+    text-transform: capitalize;
+}
+div.row{
+    margin-bottom:2em;
+}
+
+.page-paginate ul li {
+    list-style-type:none;
+    display: inline-block;
+    margin-left:0.5em;
+}
+.page-paginate ul{
+    float:right;
+}
 
 
 
