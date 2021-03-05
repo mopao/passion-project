@@ -11,7 +11,7 @@ h2 {
 }
 .div-item-img img{
     display:block;
-    height:15em;
+    height:20em;
     margin:auto;
 }
 
@@ -20,7 +20,7 @@ h2 {
     text-transform: capitalize;
 }
 div.row{
-    margin-bottom:2em;
+    margin-bottom:1em;
 }
 
 .page-paginate ul li {

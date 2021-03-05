@@ -34,7 +34,7 @@ namespace passion_project.Migrations
                         brandId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.itemId)
-                .ForeignKey("dbo.Brands", t => t.brandId, cascadeDelete: true)
+                .ForeignKey("dbo.Brands", t => t.brandId, cascadeDelete: false)
                 .Index(t => t.brandId);
             
             CreateTable(
@@ -48,7 +48,7 @@ namespace passion_project.Migrations
                         itemId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.stockId)
-                .ForeignKey("dbo.Items", t => t.itemId, cascadeDelete: true)
+                .ForeignKey("dbo.Items", t => t.itemId, cascadeDelete: false)
                 .Index(t => t.itemId);
             
         }
