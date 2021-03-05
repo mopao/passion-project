@@ -12,7 +12,7 @@ The relationships can also be modified through the web interface.
 
 ![image of item details](/imgs/itemDetails.JPG)
 
-![image of item creation](/imgs/itemCreate.JPG)
+![image of item creation](https://github.com/mopao/passion-project/blob/main/imgs/itemCreate.jpg)
 
 ![image of item edition](/imgs/itemEdit.JPG)
 
