@@ -20,11 +20,11 @@ The relationships can also be modified through the web interface.
 
 ## MVP functionalities
 
--[x] CRUD complete for all tables. Can create, read, update, and delete relationships.
+- [x] CRUD complete for all tables. Can create, read, update, and delete relationships.
 
 ## Extra features
 
--[x]Display items associated with a gender (men or women).
+- [x] Display items associated with a gender (men or women).
 
--[x]pagination for the list of items.
+- [x] pagination for the list of items.
 
