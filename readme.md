@@ -8,15 +8,15 @@ The relationships can also be modified through the web interface.
 
 **For a better rendering use images with the following dimensions: 1500 x 2000**
 
-![image of list of items](/imgs/itemList.JPG)
+![image of list of items](https://github.com/mopao/passion-project/blob/main/imgs/itemList.jpg)
 
-![image of item details](/imgs/itemDetails.JPG)
+![image of item details](https://github.com/mopao/passion-project/blob/main/imgs/itemDetails.jpg)
 
 ![image of item creation](https://github.com/mopao/passion-project/blob/main/imgs/itemCreate.jpg)
 
-![image of item edition](/imgs/itemEdit.JPG)
+![image of item edition](https://github.com/mopao/passion-project/blob/main/imgs/itemEdit.jpg)
 
-![image of item deletion](/imgs/itemDelete.JPG)
+![image of item deletion](https://github.com/mopao/passion-project/blob/main/imgs/itemDelete.jpg)
 
 ## MVP functionalities
 
